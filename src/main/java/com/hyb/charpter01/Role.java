@@ -1,8 +1,13 @@
 package com.hyb.charpter01;
 
+import java.util.Objects;
+
 /**
- * 2018/6/6 06 06 2018
- */
+ * 增删改查demo
+ *
+ * @author HYB
+ * @since 2018/6/9 15:02
+ **/
 public class Role {
     private Long id;
     private String roleName;
@@ -31,5 +36,21 @@ public class Role {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Role role = (Role) o;
+        return Objects.equals(id, role.id) &&
+                Objects.equals(roleName, role.roleName) &&
+                Objects.equals(note, role.note);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(id, roleName, note);
     }
 }

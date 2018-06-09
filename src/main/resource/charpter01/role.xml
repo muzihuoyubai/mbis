@@ -2,8 +2,28 @@
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.hyb.charpter01.Role">
-    <select id="getRole" parameterType="long" resultType="com.hyb.charpter01.Role">
-        select id,role_name as roleName,note from t_role where id - #{id}
+<!-- namespace 指向interface -->
+<mapper namespace="com.hyb.charpter01.RoleMapper">
+    <select id="selectRole" parameterType="long" resultType="com.hyb.charpter01.Role">
+        select
+            id       id,
+            roleName roleName,
+            note     note
+        from t_role
+        where id = #{id}
     </select>
+    <insert id="insertRole" parameterType="com.hyb.charpter01.Role" useGeneratedKeys="true" keyProperty="id">
+        insert into t_role (roleName, note) values (#{roleName}, #{note})
+    </insert>
+    <update id="updateRole" parameterType="com.hyb.charpter01.Role">
+        update t_role
+        set
+            roleName = #{roleName},
+            note     = #{note}
+        where id = #{id}
+    </update>
+    <delete id="deleteRole" parameterType="long">
+        delete from t_role
+        where id = #{id}
+    </delete>
 </mapper>
