@@ -1,22 +1,25 @@
-package com.hyb.charpter01;
+package com.hyb.chapter03;
 
+import com.hyb.chapter01.Role;
+import com.hyb.chapter01.RoleMapper;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 /**
- * 增删改查demo
+ * TODO
  *
  * @author HYB
- * @since 2018/6/9 14:04
+ * @since 2018/6/9 23:46
  **/
-public class Demo {
+public class TestDemo {
 
     @Test
-    public void allTest() {
+    public void test() {
 
-        SqlSession sqlSession = SqlSessionFactoryUtil.openSqlSession();
+        SqlSession sqlSession = ProcessPropBeforeBuildSqlSessionFactory.openSqlSession();
         RoleMapper roleMapper = sqlSession.getMapper(RoleMapper.class);
         roleMapper.deleteAll();
         Role role = new Role();
@@ -42,6 +45,5 @@ public class Demo {
 
         sqlSession.commit();
         sqlSession.close();
-
     }
 }

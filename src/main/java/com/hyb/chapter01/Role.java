@@ -1,4 +1,4 @@
-package com.hyb.charpter01;
+package com.hyb.chapter01;
 
 import java.util.Objects;
 
