@@ -3,7 +3,7 @@
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-    <properties resource="chapter03/jdbc.properties">
+    <properties resource="chapter03/section01/jdbc.properties">
         <property name="driver" value="com.mysql.jdbc.Driver"/>
         <property name="url" value="jdbc:mysql://localhost:3306/mbis"/>
         <property name="username" value="root"/>
@@ -11,7 +11,7 @@
     </properties>
     <environments default="development">
         <environment id="development">
-            <transactionManager type="JDBC"></transactionManager>
+            <transactionManager type="JDBC"/>
             <dataSource type="POOLED">
                 <property name="driver" value="${driver}"/>
                 <property name="url" value="${url}"/>
@@ -21,6 +21,6 @@
         </environment>
     </environments>
     <mappers>
-        <mapper resource="chapter01\role.xml"></mapper>
+        <mapper resource="chapter01\role.xml"/>
     </mappers>
 </configuration>

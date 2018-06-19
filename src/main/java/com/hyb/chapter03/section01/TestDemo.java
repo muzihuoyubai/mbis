@@ -1,4 +1,4 @@
-package com.hyb.chapter03;
+package com.hyb.chapter03.section01;
 
 import com.hyb.chapter01.Role;
 import com.hyb.chapter01.RoleMapper;
@@ -9,17 +9,20 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
 /**
- * TODO
+ * 属性的配置demo
  *
  * @author HYB
  * @since 2018/6/9 23:46
  **/
 public class TestDemo {
 
+    private static final String CONFIG_PATH = "chapter03/section01/mybatis-config.xml";
+    private static final String JDBC_PATH = "chapter03/section01/jdbc.properties";
+
     @Test
     public void test() {
 
-        SqlSession sqlSession = ProcessPropBeforeBuildSqlSessionFactory.openSqlSession();
+        SqlSession sqlSession = ProcessPropBeforeBuildSqlSessionFactory.openSqlSession(CONFIG_PATH,JDBC_PATH);
         RoleMapper roleMapper = sqlSession.getMapper(RoleMapper.class);
         roleMapper.deleteAll();
         Role role = new Role();

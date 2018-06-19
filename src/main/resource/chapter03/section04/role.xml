@@ -1,0 +1,116 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace 指向interface -->
+<mapper namespace="com.hyb.chapter03.section04.RoleMapper">
+    <!-- 直接查询sex在数据库的存放的字符串 -->
+    <select id="selectRoleSexWithString" parameterType="long" resultType="map">
+        select
+            id       id,
+            roleName roleName,
+            note     note,
+            sex      sex
+        from t_role
+        where id = #{id}
+    </select>
+
+    <!-- EnumOrdinalTypeHandler 使用int进行转换 -->
+    <insert id="insertRoleWithEnumOrdinalHandler" parameterType="com.hyb.chapter03.section04.User"
+            useGeneratedKeys="true" keyProperty="id">
+        insert into t_role (roleName, note, sex)
+        values (#{roleName}, #{note}, #{sex, typeHandler=org.apache.ibatis.type.EnumOrdinalTypeHandler})
+    </insert>
+
+    <select id="selectRoleSexWithEnumOrdinalHandler" parameterType="long" resultMap="enumOrdinalDemo">
+        select
+            id       id,
+            roleName roleName,
+            note     note,
+            sex      sex
+        from t_role
+        where id = #{id}
+    </select>
+
+    <resultMap id="enumOrdinalDemo" type="com.hyb.chapter03.section04.User">
+        <id column="id" property="id"/>
+        <result column="roleName" property="roleName"/>
+        <result column="sex" property="sex" typeHandler="org.apache.ibatis.type.EnumOrdinalTypeHandler"/>
+        <result column="note" property="note"/>
+    </resultMap>
+
+
+    <!-- EnumTypeHandler  使用Enum的string作为转换 -->
+    <insert id="insertRoleWithEnumTypeHandler" parameterType="com.hyb.chapter03.section04.User"
+            useGeneratedKeys="true" keyProperty="id">
+        insert into t_role (roleName, note, sex)
+        values (#{roleName}, #{note}, #{sex, typeHandler=org.apache.ibatis.type.EnumTypeHandler})
+    </insert>
+
+    <select id="selectRoleSexWithEnumTypeHandler" parameterType="long" resultMap="enumTypeHandlerDemo">
+        select
+            id       id,
+            roleName roleName,
+            note     note,
+            sex      sex
+        from t_role
+        where id = #{id}
+    </select>
+
+    <resultMap id="enumTypeHandlerDemo" type="com.hyb.chapter03.section04.User">
+        <id column="id" property="id"/>
+        <result column="roleName" property="roleName"/>
+        <result column="sex" property="sex" typeHandler="org.apache.ibatis.type.EnumTypeHandler"/>
+        <result column="note" property="note"/>
+    </resultMap>
+
+
+    <!-- EnumDescTypeHandler自定义的typehandler，继承了BaseTypeHandler  使用Sex的name进行转换 -->
+    <insert id="insertRoleWithNewDefineHandler" parameterType="com.hyb.chapter03.section04.User"
+            useGeneratedKeys="true" keyProperty="id">
+        insert into t_role (roleName, note, sex)
+        values (#{roleName}, #{note}, #{sex, typeHandler=com.hyb.chapter03.section04.EnumDescTypeHandler})
+    </insert>
+
+    <select id="selectRoleSexWithNewDefineHandler" parameterType="long" resultMap="defineHandlerDemo">
+        select
+            id       id,
+            roleName roleName,
+            note     note,
+            sex      sex
+        from t_role
+        where id = #{id}
+    </select>
+
+    <resultMap id="defineHandlerDemo" type="com.hyb.chapter03.section04.User">
+        <id column="id" property="id"/>
+        <result column="roleName" property="roleName"/>
+        <result column="sex" property="sex" typeHandler="com.hyb.chapter03.section04.EnumDescTypeHandler"/>
+        <result column="note" property="note"/>
+    </resultMap>
+
+    <!-- EnumDescTypeHandlerImpl自定义的typehandler，实现了TypeHandler  使用Sex的name进行转换 -->
+    <insert id="insertRoleWithTypeHandlerImpl" parameterType="com.hyb.chapter03.section04.User"
+            useGeneratedKeys="true" keyProperty="id">
+        insert into t_role (roleName, note, sex)
+        values (#{roleName}, #{note}, #{sex, typeHandler=com.hyb.chapter03.section04.EnumDescTypeHandlerImpl})
+    </insert>
+
+    <select id="selectRoleSexWithTypeHandlerImpl" parameterType="long" resultMap="typeHandlerImpl">
+        select
+            id       id,
+            roleName roleName,
+            note     note,
+            sex      sex
+        from t_role
+        where id = #{id}
+    </select>
+
+    <resultMap id="typeHandlerImpl" type="com.hyb.chapter03.section04.User">
+        <id column="id" property="id"/>
+        <result column="roleName" property="roleName"/>
+        <result column="sex" property="sex" typeHandler="com.hyb.chapter03.section04.EnumDescTypeHandlerImpl"/>
+        <result column="note" property="note"/>
+    </resultMap>
+
+</mapper>

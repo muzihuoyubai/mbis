@@ -1,4 +1,4 @@
-package com.hyb.chapter03;
+package com.hyb.chapter03.section01;
 
 import com.hyb.chapter01.SqlSessionFactoryUtil;
 import org.apache.ibatis.io.Resources;
@@ -37,19 +37,17 @@ public class ProcessPropBeforeBuildSqlSessionFactory {
     /**
      * 单例模式构建工厂
      */
-    private static void initSqlSessionFactory() {
+    private static void initSqlSessionFactory(String configPath, String jdbcPath) {
 
         Reader cfgReader = null;
-        InputStream cfgStream = null;
-        InputStream proStream = null;
-        Reader proReader = null;
+        InputStream cfgStream;
+        InputStream proStream;
+        Reader proReader;
         Properties properties = null;
         try {
-
-            cfgStream = Resources.getResourceAsStream("chapter03/mybatis-config.xml");
+            cfgStream = Resources.getResourceAsStream(configPath);
             cfgReader = new InputStreamReader(cfgStream);
-
-            proStream = Resources.getResourceAsStream("chapter03/jdbc.properties");
+            proStream = Resources.getResourceAsStream(jdbcPath);
             proReader = new InputStreamReader(proStream);
 
             properties = new Properties();
@@ -75,9 +73,9 @@ public class ProcessPropBeforeBuildSqlSessionFactory {
      *
      * @return
      */
-    public static SqlSession openSqlSession() {
+    public static SqlSession openSqlSession(String configPath, String jdbcPath) {
         if (sqlSessionFactory == null) {
-            initSqlSessionFactory();
+            initSqlSessionFactory(configPath, jdbcPath);
         }
         return sqlSessionFactory.openSession();
     }
