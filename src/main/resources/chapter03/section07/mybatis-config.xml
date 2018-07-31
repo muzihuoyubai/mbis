@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <properties resource="chapter03/section01/jdbc.properties">
+        <property name="driver" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/mbis"/>
+        <property name="username" value="root"/>
+        <property name="password" value="root"/>
+    </properties>
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${driver}"/>
+                <property name="url" value="${url}"/>
+                <property name="username" value="${username}"/>
+                <property name="password" value="${password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <mappers>
+        <!--<package name="com.hyb.chapter03.section07.mapper"/>-->
+        <mapper resource="chapter03\section07\mapper\LectureMapper.xml"/>
+        <mapper resource="chapter03\section07\mapper\StudentHealthFemaleMapper.xml"/>
+        <mapper resource="chapter03\section07\mapper\StudentHealthMaleMapper.xml"/>
+        <mapper resource="chapter03\section07\mapper\StudentLectureMapper.xml"/>
+        <mapper resource="chapter03\section07\mapper\StudentMapper.xml"/>
+        <mapper resource="chapter03\section07\mapper\StudentSelfCardMapper.xml"/>
+    </mappers>
+</configuration>

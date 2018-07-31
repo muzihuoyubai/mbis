@@ -1,4 +1,4 @@
-package com.hyb.chapter01;
+package com.hyb.util;
 
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -33,12 +33,12 @@ public class SqlSessionFactoryUtil {
     /**
      * 单例模式构建工厂
      */
-    private static void initSqlSessionFactory() {
+    private static void initSqlSessionFactory(String mybatisConfigPath) {
 
         InputStream inputStream = null;
-        String resource = "chapter01/mybatis-config.xml";
+//        String resource = "chapter01/mybatis-config.xml";
         try {
-            inputStream = Resources.getResourceAsStream(resource);
+            inputStream = Resources.getResourceAsStream(mybatisConfigPath);
         } catch (IOException e) {
             LOGGER.error(e.getMessage(), e);
         }
@@ -54,9 +54,9 @@ public class SqlSessionFactoryUtil {
      *
      * @return
      */
-    public static SqlSession openSqlSession() {
+    public static SqlSession openSqlSession(String mybatisConfigPath) {
         if (sqlSessionFactory == null) {
-            initSqlSessionFactory();
+            initSqlSessionFactory(mybatisConfigPath);
         }
         return sqlSessionFactory.openSession();
     }

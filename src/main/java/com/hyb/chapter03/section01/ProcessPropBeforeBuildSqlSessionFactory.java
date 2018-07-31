@@ -1,6 +1,6 @@
 package com.hyb.chapter03.section01;
 
-import com.hyb.chapter01.SqlSessionFactoryUtil;
+import com.hyb.util.SqlSessionFactoryUtil;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;

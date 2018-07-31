@@ -1,5 +1,6 @@
 package com.hyb.chapter01;
 
+import com.hyb.util.SqlSessionFactoryUtil;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.Test;
 
@@ -13,10 +14,12 @@ import static org.junit.Assert.*;
  **/
 public class Demo {
 
+    private static final String CONFIG_PATH = "chapter01/mybatis-config.xml";
+
     @Test
     public void allTest() {
 
-        SqlSession sqlSession = SqlSessionFactoryUtil.openSqlSession();
+        SqlSession sqlSession = SqlSessionFactoryUtil.openSqlSession(CONFIG_PATH);
         RoleMapper roleMapper = sqlSession.getMapper(RoleMapper.class);
         roleMapper.deleteAll();
         Role role = new Role();
