@@ -6,8 +6,6 @@ import com.hyb.chapter03.section07.dao.StudentSelfCardMapper;
 import com.hyb.chapter03.section07.module.Student;
 import com.hyb.chapter03.section07.module.StudentSelfCard;
 import com.hyb.util.RandomObjectFiller;
-import org.apache.ibatis.jdbc.SelectBuilder;
-import org.apache.ibatis.jdbc.SqlBuilder;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.Test;
 
