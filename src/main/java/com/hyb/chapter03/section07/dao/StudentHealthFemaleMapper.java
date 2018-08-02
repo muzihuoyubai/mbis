@@ -11,6 +11,8 @@ public interface StudentHealthFemaleMapper {
 
     StudentHealthFemale selectByPrimaryKey(Integer id);
 
+    StudentHealthFemale selectByStudentId(Integer id);
+
     int updateByPrimaryKeySelective(StudentHealthFemale record);
 
     int updateByPrimaryKey(StudentHealthFemale record);

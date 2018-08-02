@@ -1,11 +1,13 @@
 package com.hyb.chapter03.section07.module;
 
+import java.util.List;
+
 public class Student {
     private Integer id;
 
     private String cnname;
 
-    private Byte sex;
+    private Integer sex;
 
     private Integer selfcardNo;
 
@@ -15,6 +17,19 @@ public class Student {
      * 学生证，一对一级联
      */
     private StudentSelfCard studentSelfCard;
+
+    /**
+     * 课程，一对多级联
+     */
+    private List<StudentLecture> lectures;
+
+    public List<StudentLecture> getLectures() {
+        return lectures;
+    }
+
+    public void setLectures(List<StudentLecture> lectures) {
+        this.lectures = lectures;
+    }
 
     public StudentSelfCard getStudentSelfCard() {
         return studentSelfCard;
@@ -40,11 +55,11 @@ public class Student {
         this.cnname = cnname;
     }
 
-    public Byte getSex() {
+    public Integer getSex() {
         return sex;
     }
 
-    public void setSex(Byte sex) {
+    public void setSex(Integer sex) {
         this.sex = sex;
     }
 
@@ -73,6 +88,7 @@ public class Student {
                 ", selfcardNo=" + selfcardNo +
                 ", note='" + note + '\'' +
                 ", studentSelfCard=" + studentSelfCard +
+                ", lectures=" + lectures +
                 '}';
     }
 }

@@ -12,6 +12,9 @@ public class RandomObjectFiller {
     private Random random = new Random();
 
     public <T> T createAndFill(Class<T> clazz) throws Exception {
+        if (clazz.isInterface()) {
+            return null;
+        }
         T instance = clazz.newInstance();
         for (Field field : clazz.getDeclaredFields()) {
             field.setAccessible(true);
@@ -25,7 +28,7 @@ public class RandomObjectFiller {
         T instance = clazz.newInstance();
         for (Field field : clazz.getDeclaredFields()) {
             field.setAccessible(true);
-            Object value = getRandomValueForField(field,index);
+            Object value = getRandomValueForField(field, index);
             field.set(instance, value);
         }
         return instance;
@@ -49,11 +52,11 @@ public class RandomObjectFiller {
         } else if (type.equals(String.class)) {
             return UUID.randomUUID().toString();
         } else if (type.equals(Byte.class)) {
-            return new Byte((byte)0x01);
-        }else if (type.equals(BigInteger.class)) {
+            return new Byte((byte) 0x01);
+        } else if (type.equals(BigInteger.class)) {
             return BigInteger.valueOf(random.nextInt());
         } else if (type.equals(BigDecimal.class)) {
-            return BigDecimal.valueOf(random.nextDouble()).setScale(2,BigDecimal.ROUND_UP);
+            return BigDecimal.valueOf(random.nextDouble()).setScale(2, BigDecimal.ROUND_UP);
         } else if (type.equals(Date.class)) {
             return new Date(System.currentTimeMillis() + random.nextInt(100000000));
         } else if (type.equals(Boolean.class)) {

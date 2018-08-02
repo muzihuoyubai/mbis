@@ -1,69 +1,70 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hyb.chapter03.section07.dao.LectureMapper">
-  <resultMap id="BaseResultMap" type="com.hyb.chapter03.section07.module.Lecture">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="lecture_name" jdbcType="VARCHAR" property="lectureName" />
-    <result column="note" jdbcType="VARCHAR" property="note" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    id, lecture_name, note
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from t_lecture
-    where id = #{id,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from t_lecture
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.hyb.chapter03.section07.module.Lecture">
-    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
-      SELECT LAST_INSERT_ID()
-    </selectKey>
-    insert into t_lecture (lecture_name, note)
-    values (#{lectureName,jdbcType=VARCHAR}, #{note,jdbcType=VARCHAR})
-  </insert>
-  <insert id="insertSelective" parameterType="com.hyb.chapter03.section07.module.Lecture">
-    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
-      SELECT LAST_INSERT_ID()
-    </selectKey>
-    insert into t_lecture
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="lectureName != null">
-        lecture_name,
-      </if>
-      <if test="note != null">
-        note,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="lectureName != null">
-        #{lectureName,jdbcType=VARCHAR},
-      </if>
-      <if test="note != null">
-        #{note,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.hyb.chapter03.section07.module.Lecture">
-    update t_lecture
-    <set>
-      <if test="lectureName != null">
-        lecture_name = #{lectureName,jdbcType=VARCHAR},
-      </if>
-      <if test="note != null">
-        note = #{note,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.hyb.chapter03.section07.module.Lecture">
-    update t_lecture
-    set lecture_name = #{lectureName,jdbcType=VARCHAR},
-      note = #{note,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
+    <resultMap id="BaseResultMap" type="com.hyb.chapter03.section07.module.Lecture">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="lecture_name" jdbcType="VARCHAR" property="lectureName"/>
+        <result column="note" jdbcType="VARCHAR" property="note"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, lecture_name, note
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_lecture
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete
+        from t_lecture
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.hyb.chapter03.section07.module.Lecture">
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into t_lecture (lecture_name, note)
+        values (#{lectureName,jdbcType=VARCHAR}, #{note,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="com.hyb.chapter03.section07.module.Lecture">
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into t_lecture
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="lectureName != null">
+                lecture_name,
+            </if>
+            <if test="note != null">
+                note,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="lectureName != null">
+                #{lectureName,jdbcType=VARCHAR},
+            </if>
+            <if test="note != null">
+                #{note,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.hyb.chapter03.section07.module.Lecture">
+        update t_lecture
+        <set>
+            <if test="lectureName != null">
+                lecture_name = #{lectureName,jdbcType=VARCHAR},
+            </if>
+            <if test="note != null">
+                note = #{note,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.hyb.chapter03.section07.module.Lecture">
+        update t_lecture
+        set lecture_name = #{lectureName,jdbcType=VARCHAR},
+            note         = #{note,jdbcType=VARCHAR}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
 </mapper>

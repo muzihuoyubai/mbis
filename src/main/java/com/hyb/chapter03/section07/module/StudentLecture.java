@@ -9,9 +9,22 @@ public class StudentLecture {
 
     private Integer lectureId;
 
+    /**
+     * 学生和课程的一对多级联的中间表
+     */
+    private Lecture lecture;
+
     private BigDecimal grade;
 
     private String note;
+
+    public Lecture getLecture() {
+        return lecture;
+    }
+
+    public void setLecture(Lecture lecture) {
+        this.lecture = lecture;
+    }
 
     public Integer getId() {
         return id;
@@ -51,5 +64,17 @@ public class StudentLecture {
 
     public void setNote(String note) {
         this.note = note;
+    }
+
+    @Override
+    public String toString() {
+        return "StudentLecture{" +
+                "id=" + id +
+                ", studentId=" + studentId +
+                ", lectureId=" + lectureId +
+                ", lecture=" + lecture +
+                ", grade=" + grade +
+                ", note='" + note + '\'' +
+                '}';
     }
 }

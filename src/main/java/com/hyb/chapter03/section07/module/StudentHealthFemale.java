@@ -3,7 +3,7 @@ package com.hyb.chapter03.section07.module;
 public class StudentHealthFemale {
     private Integer id;
 
-    private String studentId;
+    private Integer studentId;
 
     private String checkDate;
 
@@ -29,11 +29,11 @@ public class StudentHealthFemale {
         this.id = id;
     }
 
-    public String getStudentId() {
+    public Integer getStudentId() {
         return studentId;
     }
 
-    public void setStudentId(String studentId) {
+    public void setStudentId(Integer studentId) {
         this.studentId = studentId;
     }
 
@@ -99,5 +99,21 @@ public class StudentHealthFemale {
 
     public void setNote(String note) {
         this.note = note;
+    }
+
+    @Override
+    public String toString() {
+        return "StudentHealthFemale{" +
+                "id=" + id +
+                ", studentId=" + studentId +
+                ", checkDate='" + checkDate + '\'' +
+                ", heart='" + heart + '\'' +
+                ", liver='" + liver + '\'' +
+                ", spleen='" + spleen + '\'' +
+                ", lung='" + lung + '\'' +
+                ", kidney='" + kidney + '\'' +
+                ", uterus='" + uterus + '\'' +
+                ", note='" + note + '\'' +
+                '}';
     }
 }

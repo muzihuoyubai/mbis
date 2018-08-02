@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hyb.chapter03.section07.dao.StudentMapper">
+    <resultMap id="maleStudentMap" type="com.hyb.chapter03.section07.module.MaleStudent" extends="BaseResultMap">
+        <collection property="studentHealthMales" column="id" select="com.hyb.chapter03.section07.dao.StudentHealthMaleMapper.selectByStudentId"></collection>
+    </resultMap>
+
+    <resultMap id="femaleStudentMap" type="com.hyb.chapter03.section07.module.FemaleStudent" extends="BaseResultMap">
+        <collection property="studentHealthFemales" column="id" select="com.hyb.chapter03.section07.dao.StudentHealthFemaleMapper.selectByStudentId"></collection>
+    </resultMap>
+
     <resultMap id="BaseResultMap" type="com.hyb.chapter03.section07.module.Student">
         <id column="id" jdbcType="INTEGER" property="id"/>
         <result column="cnname" jdbcType="VARCHAR" property="cnname"/>
@@ -17,7 +25,14 @@
         <!-- 级联的查询-->
         <association property="studentSelfCard" column="id"
                      select="com.hyb.chapter03.section07.dao.StudentSelfCardMapper.selectByStudentId"/>
+        <collection property="lectures" column="id"
+                    select="com.hyb.chapter03.section07.dao.StudentLectureMapper.selectByStudentId"/>
+        <discriminator javaType="int" column="sex">
+            <case value="1" resultMap="maleStudentMap"></case>
+            <case value="2" resultMap="femaleStudentMap"></case>
+        </discriminator>
     </resultMap>
+
     <sql id="Base_Column_List">
         id, cnname, sex, selfcard_no, note
     </sql>
@@ -39,7 +54,8 @@
         from t_student
         where id = #{id,jdbcType=INTEGER}
     </delete>
-    <insert id="insert" parameterType="com.hyb.chapter03.section07.module.Student" useGeneratedKeys="true" keyProperty="roleId">
+    <insert id="insert" parameterType="com.hyb.chapter03.section07.module.Student" useGeneratedKeys="true"
+            keyProperty="roleId">
         <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
             SELECT LAST_INSERT_ID()
         </selectKey>

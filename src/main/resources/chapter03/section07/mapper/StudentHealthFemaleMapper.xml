@@ -3,7 +3,7 @@
 <mapper namespace="com.hyb.chapter03.section07.dao.StudentHealthFemaleMapper">
   <resultMap id="BaseResultMap" type="com.hyb.chapter03.section07.module.StudentHealthFemale">
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="student_id" jdbcType="VARCHAR" property="studentId" />
+    <result column="student_id" jdbcType="INTEGER" property="studentId" />
     <result column="check_date" jdbcType="VARCHAR" property="checkDate" />
     <result column="heart" jdbcType="VARCHAR" property="heart" />
     <result column="liver" jdbcType="VARCHAR" property="liver" />
@@ -22,7 +22,13 @@
     from t_student_health_female
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <select id="selectByStudentId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+      select
+      <include refid="Base_Column_List" />
+      from t_student_health_female
+      where student_id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from t_student_health_female
     where id = #{id,jdbcType=INTEGER}
   </delete>
@@ -34,7 +40,7 @@
       liver, spleen, lung, 
       kidney, uterus, note
       )
-    values (#{studentId,jdbcType=VARCHAR}, #{checkDate,jdbcType=VARCHAR}, #{heart,jdbcType=VARCHAR}, 
+    values (#{studentId,jdbcType=INTEGER}, #{checkDate,jdbcType=VARCHAR}, #{heart,jdbcType=VARCHAR},
       #{liver,jdbcType=VARCHAR}, #{spleen,jdbcType=VARCHAR}, #{lung,jdbcType=VARCHAR}, 
       #{kidney,jdbcType=VARCHAR}, #{uterus,jdbcType=VARCHAR}, #{note,jdbcType=VARCHAR}
       )
@@ -75,7 +81,7 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="studentId != null">
-        #{studentId,jdbcType=VARCHAR},
+        #{studentId,jdbcType=INTEGER},
       </if>
       <if test="checkDate != null">
         #{checkDate,jdbcType=VARCHAR},
@@ -107,7 +113,7 @@
     update t_student_health_female
     <set>
       <if test="studentId != null">
-        student_id = #{studentId,jdbcType=VARCHAR},
+        student_id = #{studentId,jdbcType=INTEGER},
       </if>
       <if test="checkDate != null">
         check_date = #{checkDate,jdbcType=VARCHAR},
@@ -138,7 +144,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.hyb.chapter03.section07.module.StudentHealthFemale">
     update t_student_health_female
-    set student_id = #{studentId,jdbcType=VARCHAR},
+    set student_id = #{studentId,jdbcType=INTEGER},
       check_date = #{checkDate,jdbcType=VARCHAR},
       heart = #{heart,jdbcType=VARCHAR},
       liver = #{liver,jdbcType=VARCHAR},
