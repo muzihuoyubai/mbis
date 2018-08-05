@@ -1021,7 +1021,7 @@
     <column id="258" parent="242" name="sex">
       <Position>3</Position>
       <Comment>性别</Comment>
-      <DataType>tinyint(4)|0s</DataType>
+      <DataType>int(4)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="259" parent="242" name="selfcard_no">
@@ -1051,7 +1051,7 @@
     <column id="263" parent="243" name="student_id">
       <Position>2</Position>
       <Comment>学生编号</Comment>
-      <DataType>varchar(60)|0s</DataType>
+      <DataType>int(20)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="264" parent="243" name="check_date">
@@ -1117,7 +1117,7 @@
     <column id="274" parent="244" name="student_id">
       <Position>2</Position>
       <Comment>学生编号</Comment>
-      <DataType>varchar(60)|0s</DataType>
+      <DataType>int(20)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="275" parent="244" name="check_date">

@@ -2,11 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hyb.chapter03.section07.dao.StudentMapper">
     <resultMap id="maleStudentMap" type="com.hyb.chapter03.section07.module.MaleStudent" extends="BaseResultMap">
-        <collection property="studentHealthMales" column="id" select="com.hyb.chapter03.section07.dao.StudentHealthMaleMapper.selectByStudentId"></collection>
+        <collection property="studentHealthMales" column="id"
+                    select="com.hyb.chapter03.section07.dao.StudentHealthMaleMapper.selectByStudentId"></collection>
     </resultMap>
 
     <resultMap id="femaleStudentMap" type="com.hyb.chapter03.section07.module.FemaleStudent" extends="BaseResultMap">
-        <collection property="studentHealthFemales" column="id" select="com.hyb.chapter03.section07.dao.StudentHealthFemaleMapper.selectByStudentId"></collection>
+        <collection property="studentHealthFemales" column="id"
+                    select="com.hyb.chapter03.section07.dao.StudentHealthFemaleMapper.selectByStudentId"></collection>
     </resultMap>
 
     <resultMap id="BaseResultMap" type="com.hyb.chapter03.section07.module.Student">
@@ -23,6 +25,7 @@
         <result column="selfcard_no" jdbcType="INTEGER" property="selfcardNo"/>
         <result column="note" jdbcType="VARCHAR" property="note"/>
         <!-- 级联的查询-->
+        <!-- column 作为参数传递给select -->
         <association property="studentSelfCard" column="id"
                      select="com.hyb.chapter03.section07.dao.StudentSelfCardMapper.selectByStudentId"/>
         <collection property="lectures" column="id"
@@ -124,4 +127,84 @@
             note        = #{note,jdbcType=VARCHAR}
         where id = #{id,jdbcType=INTEGER}
     </update>
+
+    <resultMap id="studentWithInfoMap" type="com.hyb.chapter03.section07.module.Student">
+        <id column="id" property="id"/>
+        <result column="cnname" property="cnname"/>
+        <result column="sex" property="sex"/>
+        <result column="note" property="note"/>
+        <association property="studentSelfCard" column="id"
+                     javaType="com.hyb.chapter03.section07.module.StudentSelfCard">
+            <result column="cnative" property="cnative"/>
+            <result column="end_date" property="endDate"/>
+            <result column="issue_date" property="issueDate"/>
+            <result column="selfnote" property="note"/>
+        </association>
+        <collection property="lectures" ofType="com.hyb.chapter03.section07.module.StudentLecture">
+            <result column="slid" property="id"/>
+            <association property="lecture" column="sllecid" javaType="com.hyb.chapter03.section07.module.Lecture">
+                <id column="sllecid" property="id"></id>
+                <result column="sllecname" property="lectureName"></result>
+            </association>
+        </collection>
+        <discriminator javaType="int" column="sex">
+            <case value="1" resultMap="maleStudentMapWithInfo"></case>
+            <case value="2" resultMap="femaleStudentMapWithInfo"></case>
+        </discriminator>
+    </resultMap>
+
+    <resultMap id="maleStudentMapWithInfo" type="com.hyb.chapter03.section07.module.MaleStudent" extends="studentWithInfoMap">
+        <collection property="studentHealthMales" column="id"
+                    select="com.hyb.chapter03.section07.dao.StudentHealthMaleMapper.selectByStudentId"></collection>
+    </resultMap>
+
+    <resultMap id="femaleStudentMapWithInfo" type="com.hyb.chapter03.section07.module.FemaleStudent" extends="studentWithInfoMap">
+        <collection property="studentHealthFemales" column="id"
+                    select="com.hyb.chapter03.section07.dao.StudentHealthFemaleMapper.selectByStudentId"></collection>
+    </resultMap>
+
+    <select id="selectStudentByIdWithInfo" resultMap="studentWithInfoMap">
+        SELECT student.id,
+               student.cnname,
+               student.sex,
+               student.selfcard_no,
+               student.note,
+               sl.id             slid,
+               sl.lecture_id     sllecid,
+               sl.student_id     slstuid,
+               sl.grade,
+               sl.note           slnote,
+               lec.lecture_name  sllecname,
+               lec.note          lecnote,
+               self.cnative,
+               self.end_date,
+               self.issue_date,
+               self.id           selfid,
+               self.note         selfnote,
+               female.check_date fecheckdate,
+               female.heart      feheart,
+               female.kidney     fekidney,
+               female.id         feid,
+               female.liver      feliver,
+               female.lung       felung,
+               female.note       fenote,
+               female.spleen     fespleen,
+               female.uterus     feuterus,
+               male.check_date   malecheckdate,
+               male.heart        maleheart,
+               male.id           maleid,
+               male.kidney       malekidney,
+               male.liver        maleliver,
+               male.lung         malelung,
+               male.note         malenote,
+               male.prostate     maleprostate,
+               male.spleen       malespleen
+        FROM t_student student
+                 LEFT JOIN t_student_lecture sl ON student.id = sl.student_id
+                 LEFT JOIN t_lecture lec ON lec.id = sl.lecture_id
+                 LEFT JOIN t_student_selfcard self ON self.student_id = student.id
+                 LEFT JOIN t_student_health_female female ON female.student_id = student.id
+                 LEFT JOIN t_student_health_male male ON male.student_id = student.id
+        where student.id = #{id}
+    </select>
 </mapper>

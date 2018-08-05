@@ -2,6 +2,8 @@ package com.hyb.chapter03.section07.dao;
 
 import com.hyb.chapter03.section07.module.Student;
 
+import java.util.List;
+
 public interface StudentMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -16,4 +18,6 @@ public interface StudentMapper {
     int updateByPrimaryKey(Student record);
 
     Student selectWithSelfCard(int id);
+
+    Student selectStudentByIdWithInfo(int id);
 }

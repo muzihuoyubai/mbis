@@ -99,4 +99,14 @@ public class StudentMapperTest {
 
         System.out.println(female);
     }
+
+    @Test
+    public void selectOneWithInfo() throws Exception {
+        SqlSession sqlSession = SqlSessionFactoryUtil.openSqlSession(CONFIG_PATH);
+        StudentMapper studentMapper = sqlSession.getMapper(StudentMapper.class);
+
+//        Student student = studentMapper.selectStudentByIdWithInfo(19);
+        Student student = studentMapper.selectStudentByIdWithInfo(11);
+        System.out.println(student);
+    }
 }
